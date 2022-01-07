@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Playerを制御するクラス
-public class PlayerController : MonoBehaviour
+// ３人称視点でPlayerを制御するクラス
+public class ThirdPersonPerspectiveController : MonoBehaviour
 {
 
     [SerializeField]
@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour
 
     // 現在の位置
     Vector3 currentPosition;
-
 
     void Start()
     {
