@@ -33,6 +33,8 @@ public class FirstPersonPerspectiveController : MonoBehaviour
     public float MovementSpeed = 3.0f;
     Vector3 moveDirection;
 
+    float inputValueX;
+    float inputValueZ;
 
 
     void Reset()
@@ -51,13 +53,13 @@ public class FirstPersonPerspectiveController : MonoBehaviour
 
     void Update()
     {
-        MoveViewPoint();
         // DragMoveViewpoint();
-
+        GetInputValue();
     }
 
     void FixedUpdate()
     {
+        MoveViewPoint();
         MovePlayer();
     }
 
@@ -68,7 +70,7 @@ public class FirstPersonPerspectiveController : MonoBehaviour
         rotationAngleY += Input.GetAxis("Mouse X") * RotateSpeed;
 
         // 上下方向
-        // rotationAngleX -= Input.GetAxis("Mouse Y") * RotateSpeed;
+        rotationAngleX -= Input.GetAxis("Mouse Y") * RotateSpeed;
         // 上下方向の制限
         if(rotationAngleX > maxRotationAngleX)
         {
@@ -117,23 +119,43 @@ public class FirstPersonPerspectiveController : MonoBehaviour
         }
     }
 
+    // 入力値の取得
+    void GetInputValue()
+    {
+        // 入力値を取得(-1~1)
+        inputValueX = Input.GetAxis("Horizontal");
+        inputValueZ = Input.GetAxis("Vertical");
+    }
     // Player の位置移動を実装する
     void MovePlayer()
     {
-        // 入力値を取得(-1~1)
-        float inputValueX = Input.GetAxis("Horizontal");
-        float inputValueZ = Input.GetAxis("Vertical");
-
         // 前後移動　(どこの方向を向いていても正面に進めるようにする)
 
         // 下記の二行は、y軸の回転量を Quaternion 型で取得できるのなら省略可能、またはそれと同等の操作をする(オイラー角をまったく使用しないで回転を作成し操作したい)
         // ｙ軸の回転量
         float myAngleY = transform.eulerAngles.y;
-        Quaternion rotationValue = Quaternion.Euler(new Vector3(0, myAngleY, 0)); // y軸周りの回転
+
+        // Quaternion rotationValue = Quaternion.Euler(new Vector3(0, myAngleY, 0)); // y軸周りの回転
+        // or
+        Quaternion rotationValueY = Quaternion.AngleAxis(myAngleY, Vector3.up);   // axis の周りを angle 度回転する回転を作成
+
         // 注意:Quaternion * Vector3 の順で使用する必要があり、これは与えられたベクトルを回転させることを意味する
         // or on two Quaternion for using the first rotation an on top of it add the second one (order matters!)
-        Vector3 newDirection = rotationValue * Vector3.forward;
-        rb.velocity = newDirection.normalized * inputValueZ * MovementSpeed;
+
+        // Vector3 newDirection = rotationValue * Vector3.forward;
+        // or
+        Vector3 frontDirection = rotationValueY * Vector3.forward;
+
+        // rb.velocity = newDirection.normalized * inputValueZ * MovementSpeed;
+        // rb.velocity = frontDirection.normalized * inputValueZ * MovementSpeed;
+
+
+        // 左右方向取得
+        Vector3 rightDirection = transform.right;
+
+        // 前後左右の移動
+        rb.velocity = (rightDirection * inputValueX + frontDirection.normalized * inputValueZ)  * MovementSpeed;
+
     }
 
 }
