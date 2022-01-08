@@ -29,6 +29,11 @@ public class FirstPersonPerspectiveController : MonoBehaviour
     Vector3 lastMousePosition;
     Vector3 newAngle = Vector3.zero;
 
+    // Player の移動速度
+    public float MovementSpeed = 3.0f;
+    Vector3 moveDirection;
+
+
 
     void Reset()
     {
@@ -48,6 +53,12 @@ public class FirstPersonPerspectiveController : MonoBehaviour
     {
         MoveViewPoint();
         // DragMoveViewpoint();
+
+    }
+
+    void FixedUpdate()
+    {
+        MovePlayer();
     }
 
     // 視点をマウスの合わせて制御できるようにする
@@ -57,7 +68,7 @@ public class FirstPersonPerspectiveController : MonoBehaviour
         rotationAngleY += Input.GetAxis("Mouse X") * RotateSpeed;
 
         // 上下方向
-        rotationAngleX -= Input.GetAxis("Mouse Y") * RotateSpeed;
+        // rotationAngleX -= Input.GetAxis("Mouse Y") * RotateSpeed;
         // 上下方向の制限
         if(rotationAngleX > maxRotationAngleX)
         {
@@ -105,4 +116,24 @@ public class FirstPersonPerspectiveController : MonoBehaviour
             lastMousePosition = Input.mousePosition;
         }
     }
+
+    // Player の位置移動を実装する
+    void MovePlayer()
+    {
+        // 入力値を取得(-1~1)
+        float inputValueX = Input.GetAxis("Horizontal");
+        float inputValueZ = Input.GetAxis("Vertical");
+
+        // 前後移動　(どこの方向を向いていても正面に進めるようにする)
+
+        // 下記の二行は、y軸の回転量を Quaternion 型で取得できるのなら省略可能、またはそれと同等の操作をする(オイラー角をまったく使用しないで回転を作成し操作したい)
+        // ｙ軸の回転量
+        float myAngleY = transform.eulerAngles.y;
+        Quaternion rotationValue = Quaternion.Euler(new Vector3(0, myAngleY, 0)); // y軸周りの回転
+        // 注意:Quaternion * Vector3 の順で使用する必要があり、これは与えられたベクトルを回転させることを意味する
+        // or on two Quaternion for using the first rotation an on top of it add the second one (order matters!)
+        Vector3 newDirection = rotationValue * Vector3.forward;
+        rb.velocity = newDirection.normalized * inputValueZ * MovementSpeed;
+    }
+
 }

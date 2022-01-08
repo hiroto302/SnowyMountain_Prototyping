@@ -706,8 +706,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 1375063445}
   viewpointCamera: {fileID: 1104328309}
-  RotationSpeed: 1
-  rotateSpeed: 2
+  RotateSpeed: 2
+  MovementSpeed: 3
 --- !u!1 &1447763015
 GameObject:
   m_ObjectHideFlags: 0
