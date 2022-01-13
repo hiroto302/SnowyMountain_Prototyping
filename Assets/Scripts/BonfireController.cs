@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 
 // 必要数の松ぼっくりを入れたら発火する機能を追加
@@ -17,11 +18,15 @@ public class BonfireController : MonoBehaviour
     // 焚き火の中にある松ぼっくりの数
     public int InFirePineconesNum = 0;
 
+    // 松ぼっくりが炎の中へ入れらた時発生する event
+    public static event Action IntoFire;
+
+
     // 発火メソッド
     public void Ignite()
     {
         // 必要数の松ぼっくりがあれば発火
-        if(RequiredPineconesNum >= InFirePineconesNum)
+        if(RequiredPineconesNum <= InFirePineconesNum)
         {
             FirePartice.Play();
             PointLight.SetActive(true);
@@ -39,7 +44,11 @@ public class BonfireController : MonoBehaviour
     // 火の中の松ぼっくりを入れた時に発生するメソッド
     public void PutPineconeIntoFire()
     {
-        InFirePineconesNum ++;
-        Ignite();
+        if(InteractHandler.GrabbedObjectName == "Pinecone")
+        {
+            InFirePineconesNum ++;
+            IntoFire();
+            Ignite();
+        }
     }
 }
