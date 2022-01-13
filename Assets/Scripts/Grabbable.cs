@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 // 掴むことが可能なオブジェクトにアタッチ
 // 掴んだ時にPlayer と衝突判定が起きないよにレイヤーで設定すること
@@ -15,6 +16,13 @@ public class Grabbable : MonoBehaviour
     Rigidbody rb;
     Vector3 lossyScale;
     Vector3 localeScale;
+
+    // 掴むもの名前
+    public string ObjectName = null;
+
+    // オブジェクトが掴む or 掴まれいる状態かの時に起こる event : 引数 掴んでいるもの名称
+    public static event Action<string> OnChangeState;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -39,6 +47,7 @@ public class Grabbable : MonoBehaviour
         rb.isKinematic = true;
         // 親オブジェクトにPlayerのHandを指定
         // SetParent の挙動が指定した親の親にも依存してscale が変化してしまう。 なので、Scale(1, 1, 1) の空オブジェクト(今回は、Hand_root)作成し、object 構造に注意すること
+        // or //ワールド座標系→ローカル座標系の係数を作成してあげるとか
         transform.SetParent(HandTransform, true);
         // transform.localScale = originalSize;
         // 移動した時のローカル位置を指定
@@ -47,6 +56,9 @@ public class Grabbable : MonoBehaviour
             transform.localPosition = SnapOffset.position;
             transform.localRotation = SnapOffset.rotation;
         }
+
+        InformGrabbedObjectName();
+        OnChangeState(ObjectName);
     }
 
     // 手元から離れるメソッド
@@ -55,5 +67,26 @@ public class Grabbable : MonoBehaviour
         transform.SetParent(null, true);
         rb.isKinematic = false;
         // transform.localScale = lossyScale;
+
+        // 掴んでいる物なし
+        InteractHandler.GrabbedObjectName = null;
+        OnChangeState(ObjectName);
+    }
+
+    // 掴んでいるものが何であるか?
+    public void GetGrabbedObjectName(string name)
+    {
+        // 掴んでいる物に固有名詞がある時実行
+        this.ObjectName = name;
+    }
+
+    // 物を掴んだことを知らせる
+    public void InformGrabbedObjectName()
+    {
+        // 掴んだ物に固有名詞がある時
+        if(ObjectName != null)
+        {
+            InteractHandler.GrabbedObjectName = ObjectName;
+        }
     }
 }
