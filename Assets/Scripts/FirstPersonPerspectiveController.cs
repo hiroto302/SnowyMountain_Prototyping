@@ -36,6 +36,10 @@ public class FirstPersonPerspectiveController : MonoBehaviour
     float inputValueX;
     float inputValueZ;
 
+    // 足音（移動時の音)
+    [SerializeField]
+    FootstepManager footstepManager = null;
+    float elapsedTime = 0;
 
     void Reset()
     {
@@ -129,7 +133,7 @@ public class FirstPersonPerspectiveController : MonoBehaviour
     // Player の位置移動を実装する
     void MovePlayer()
     {
-        // 前後移動　(どこの方向を向いていても正面に進めるようにする)
+        // 前後移動 (どこの方向を向いていても正面に進めるようにする)
 
         // 下記の二行は、y軸の回転量を Quaternion 型で取得できるのなら省略可能、またはそれと同等の操作をする(オイラー角をまったく使用しないで回転を作成し操作したい)
         // ｙ軸の回転量
@@ -156,6 +160,16 @@ public class FirstPersonPerspectiveController : MonoBehaviour
         // 前後左右の移動
         rb.velocity = (rightDirection * inputValueX + frontDirection.normalized * inputValueZ)  * MovementSpeed;
 
+        // 足音
+        if(Mathf.Abs(inputValueX) > 0.8f || Mathf.Abs(inputValueZ) > 0.8f)
+        {
+            elapsedTime += Time.fixedDeltaTime;
+            if(elapsedTime > 0.8f)
+            {
+                footstepManager.PlayFootstepSE();
+                elapsedTime = 0;
+            }
+        }
     }
 
 }
