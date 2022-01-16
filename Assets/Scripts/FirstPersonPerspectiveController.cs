@@ -158,7 +158,9 @@ public class FirstPersonPerspectiveController : MonoBehaviour
         Vector3 rightDirection = transform.right;
 
         // 前後左右の移動
-        rb.velocity = (rightDirection * inputValueX + frontDirection.normalized * inputValueZ)  * MovementSpeed;
+        // 上下の移動は、重力がPlayerにかかるようデフォルトのまま。上書きしないように
+        Vector3 forceDirection = (rightDirection * inputValueX + frontDirection.normalized * inputValueZ)  * MovementSpeed;
+        rb.velocity = new Vector3(forceDirection.x, rb.velocity.y, forceDirection.z);
 
         // 足音
         if(Mathf.Abs(inputValueX) > 0.8f || Mathf.Abs(inputValueZ) > 0.8f)
