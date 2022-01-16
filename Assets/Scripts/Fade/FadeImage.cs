@@ -1,0 +1,91 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+// Image を fade させるクラス
+// fade out : 透明度を徐々に減少(1 黒  => 0透明)
+// fade in  : 透明度を徐々に増加(0 透明 => 1黒)
+public class FadeImage : MonoBehaviour
+{
+    Coroutine fadeImageCoroutine;
+    // 制御する Image
+    [SerializeField] Image image = null;
+    // Image の初期値を習得
+    float red, green, blue, alfa;
+
+    void Start()
+    {
+        GetInitialColor();
+    }
+
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.G))
+        {
+            FadeOut(5.0f);
+        }
+    }
+    public void FadeIn(float second)
+    {
+        fadeImageCoroutine = StartCoroutine(FadeInImageRoutine(second));
+    }
+
+    public void FadeOut(float second)
+    {
+        fadeImageCoroutine = StartCoroutine(FadeOutImageRoutine(second));
+    }
+
+    // alfa 0 => 1 に second の時間をかけて増加させていく
+    IEnumerator FadeInImageRoutine(float second)
+    {
+        float elapsedTime = 0;          // 経過時間
+        alfa = 0;                       // 透明度の初期値
+        float waitForSecond = 0.05f;     // 待機時間
+        float fadeRate = 1.0f / second;  // fade率 : 1秒間あたりの増加率
+        while(true)
+        {
+            elapsedTime += waitForSecond;
+            if(elapsedTime >= second)
+            {
+                break;
+            }
+            yield return new WaitForSeconds(waitForSecond);
+            alfa = fadeRate * elapsedTime;
+            image.color = new Color(red, green, blue, alfa);
+        }
+        image.color = new Color(red, green, blue, 1.0f);
+        StopCoroutine(fadeImageCoroutine);
+        fadeImageCoroutine = null;
+    }
+    // alfa 1 => 0
+    IEnumerator FadeOutImageRoutine(float second)
+    {
+        float elapsedTime = 0;          // 経過時間
+        alfa = 1;                       // 透明度の初期値
+        float waitForSecond = 0.05f;     // 待機時間
+        float fadeRate = 1.0f / second;  // fade率 : 1秒間あたりの増加率
+        while(true)
+        {
+            elapsedTime += waitForSecond;
+            if(elapsedTime >= second)
+            {
+                break;
+            }
+            yield return new WaitForSeconds(waitForSecond);
+            alfa = 1.0f - fadeRate * elapsedTime;
+            image.color = new Color(red, green, blue, alfa);
+        }
+        image.color = new Color(red, green, blue, 0);
+        StopCoroutine(fadeImageCoroutine);
+        fadeImageCoroutine = null;
+    }
+
+    void GetInitialColor()
+    {
+        red = image.color.r;
+        green = image.color.g;
+        blue = image.color.b;
+        alfa = image.color.a;
+    }
+}
