@@ -21,11 +21,16 @@ public class FadeImage : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.G))
+        if(Input.GetKeyDown(KeyCode.B))
         {
-            FadeOut(5.0f);
+            FadeIn(3.0f);
+        }
+        if(Input.GetKeyDown(KeyCode.V))
+        {
+            FadeOut(3.0f);
         }
     }
+
     public void FadeIn(float second)
     {
         fadeImageCoroutine = StartCoroutine(FadeInImageRoutine(second));

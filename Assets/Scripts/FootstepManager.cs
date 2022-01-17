@@ -146,7 +146,6 @@ public class FootstepManager : MonoBehaviour
             // 現在踏んでいる地面の種類番号を取得
             groundIndex = tagToIndex[terrainLayerToTag[terrainLayer]];
         }
-        Debug.Log(groundIndex);
     }
 
     public void PlayFootstepSE()

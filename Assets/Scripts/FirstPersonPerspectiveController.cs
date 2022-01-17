@@ -41,6 +41,9 @@ public class FirstPersonPerspectiveController : MonoBehaviour
     FootstepManager footstepManager = null;
     float elapsedTime = 0;
 
+    // 移動を行うことが可能であるか
+    public bool isMovable;
+
     void Reset()
     {
         if(!rb)
@@ -57,14 +60,27 @@ public class FirstPersonPerspectiveController : MonoBehaviour
 
     void Update()
     {
-        // DragMoveViewpoint();
         GetInputValue();
     }
 
     void FixedUpdate()
     {
         MoveViewPoint();
-        MovePlayer();
+        if(isMovable)
+            MovePlayer();
+    }
+
+    // 移動可能状態の切り替え
+    public void ToggleMovableState(bool  movableState)
+    {
+        this.isMovable = movableState;
+        // 動ける可能な状態になった時
+        // ワープ機能を実装して、ワープ先の player 位置・回転を指定した時、
+        // 回転のための初期値を更新する必要があるため GetInitialRotaion を呼び出す。
+        if(movableState == true)
+        {
+            GetInitialRotation();
+        }
     }
 
     // 視点をマウスの合わせて制御できるようにする
@@ -88,7 +104,7 @@ public class FirstPersonPerspectiveController : MonoBehaviour
         transform.rotation = Quaternion.Euler(rotationAngleX, rotationAngleY, 0);
     }
 
-    void GetInitialRotation()
+    public void GetInitialRotation()
     {
         initialRotation = this.transform.rotation;
         initialRotationAngle = initialRotation.eulerAngles;

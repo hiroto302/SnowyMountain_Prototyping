@@ -28,11 +28,14 @@ public class InteractHandler : MonoBehaviour
     // 掴んでいる物が何なのか判断するため
     // public static event Action<string> OnGrabbedObject;
 
-
-    void Start()
+    void Awake()
     {
         // CenterPointer の生成
         Instantiate(CentralPointerPrefab);
+    }
+
+    void Start()
+    {
 
         var centerPoint= GameObject.Find("CenterPoint");
         if(centerPoint != null)
