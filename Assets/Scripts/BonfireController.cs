@@ -21,6 +21,10 @@ public class BonfireController : MonoBehaviour
     // 松ぼっくりが炎の中へ入れらた時発生する event
     public static event Action IntoFire;
 
+    [SerializeField]
+    SE se = null;
+    [SerializeField]
+    AudioSource fireParticeAudioSource = null;
 
     // 発火メソッド
     public void Ignite()
@@ -30,6 +34,7 @@ public class BonfireController : MonoBehaviour
         {
             FirePartice.Play();
             PointLight.SetActive(true);
+            fireParticeAudioSource.Play();
             if(IgniteParticle!)
                 IgniteParticle.Play();
         }
