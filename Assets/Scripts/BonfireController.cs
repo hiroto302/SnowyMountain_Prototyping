@@ -26,6 +26,11 @@ public class BonfireController : MonoBehaviour
     [SerializeField]
     AudioSource fireParticeAudioSource = null;
 
+    void Start()
+    {
+        fireParticeAudioSource.Play();
+        fireParticeAudioSource.volume = 0.05f;
+    }
     // 発火メソッド
     public void Ignite()
     {
@@ -34,7 +39,8 @@ public class BonfireController : MonoBehaviour
         {
             FirePartice.Play();
             PointLight.SetActive(true);
-            fireParticeAudioSource.Play();
+            // fireParticeAudioSource.Play();
+            fireParticeAudioSource.volume = 0.3f;
             if(IgniteParticle!)
                 IgniteParticle.Play();
         }
@@ -42,7 +48,11 @@ public class BonfireController : MonoBehaviour
         else
         {
             if(IgniteParticle!)
+            {
                 IgniteParticle.Play();
+                se.PlaySE(1);
+            }
+
         }
     }
 
