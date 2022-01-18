@@ -16,15 +16,14 @@ public class OpeningController : MonoBehaviour
     GameObject openingUIParent;
     [SerializeField]
     SE se = null;
-    void Awake()
-    {
-
-    }
+    // 制御するBGM
+    BGMController bgm = null;
 
     bool hasStartedGame = false;
 
     void Start()
     {
+        bgm = GameObject.Find("BGM").GetComponent<BGMController>();
         ConfigureOpening();
     }
     void Update()
@@ -41,8 +40,6 @@ public class OpeningController : MonoBehaviour
         // playerを待機状態
         // この処理だけではカーソルが動くならスリプトを無効状態にした方がいいかも
         playerController.SetState(PlayerController.State.Waiting);
-        
-
     }
     // ゲームを開始するメソッド
     public void StartGame()
@@ -55,5 +52,6 @@ public class OpeningController : MonoBehaviour
         // 開始音SE
         se.PlaySE(0);
         // BGM再生開始
+        bgm.PlayBGM();
     }
 }

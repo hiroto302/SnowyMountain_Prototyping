@@ -11,6 +11,8 @@ public class BGMController  : MonoBehaviour
     // BGM
     [SerializeField]
     protected AudioClip bgm = null;
+    [SerializeField]
+    bool playOnAwake = true;
     void Reset()
     {
         audioSource = GetComponent<AudioSource>();
@@ -19,6 +21,7 @@ public class BGMController  : MonoBehaviour
         {
             audioSource.clip = bgm;
         }
+
         SetDefault();
     }
     void Awake()
@@ -27,8 +30,11 @@ public class BGMController  : MonoBehaviour
         if(audioSource.clip == null)
         {
             audioSource.clip = bgm;
-            // 音の再生
-            audioSource.Play();
+        }
+        // 再生するか
+        if(playOnAwake)
+        {
+            PlayBGM();
         }
     }
 
@@ -45,5 +51,11 @@ public class BGMController  : MonoBehaviour
         audioSource.spatialBlend = 0;
         // 音の再生タイミング
         audioSource.playOnAwake = true;
+    }
+
+    public void PlayBGM()
+    {
+        // 音の再生
+        audioSource.Play();
     }
 }
