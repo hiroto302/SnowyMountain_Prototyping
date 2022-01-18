@@ -212,9 +212,10 @@ GameObject:
   - component: {fileID: 1550798021565891995}
   - component: {fileID: 1550798021565891989}
   - component: {fileID: 1550798021565891986}
+  - component: {fileID: 1325624793}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -346,6 +347,7 @@ MonoBehaviour:
   RotateSpeed: 2
   MovementSpeed: 3
   footstepManager: {fileID: 697750618}
+  isMovable: 0
 --- !u!114 &1550798021565891986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,6 +363,20 @@ MonoBehaviour:
   CentralPointerPrefab: {fileID: 5616403765960147496, guid: c0a24c7a4ad914bd8a5a498f794a3e10, type: 3}
   InteractablePointer: {fileID: 21300000, guid: 46c496bc787c74a0b96617f74c5d3af4, type: 3}
   NormalPointer: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+--- !u!114 &1325624793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550798021565891994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16efd1dc6f2e440adbd2cc0cdaf7a0a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+  moveController: {fileID: 1550798021565891989}
 --- !u!1 &1550798021836881532
 GameObject:
   m_ObjectHideFlags: 0
