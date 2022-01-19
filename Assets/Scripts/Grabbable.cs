@@ -10,12 +10,10 @@ using System;
 public class Grabbable : MonoBehaviour
 {
     // player の手元の位置
-    public Transform HandTransform;
-    public Transform SnapOffset;
+    [SerializeField] Transform handTransform;
+    [SerializeField] Transform snapOffset;
 
     Rigidbody rb;
-    Vector3 lossyScale;
-    Vector3 localeScale;
 
     // 掴むもの名前
     public string ObjectName = null;
@@ -23,21 +21,15 @@ public class Grabbable : MonoBehaviour
     // オブジェクトが掴む or 掴まれいる状態かの時に起こる event : 引数 掴んでいるもの名称
     public static event Action<string> OnChangeState;
 
+    void Reset()
+    {
+        handTransform = GameObject.FindGameObjectWithTag("Hand").GetComponent<Transform>();
+    }
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        // ワールド座標に対する、従来のサイズを保存
-        lossyScale = transform.lossyScale;
     }
-    void Update()
-    {
-        // テスト用
-        if(Input.GetKeyDown(KeyCode.R))
-            DetachFromHand();
 
-        if(Input.GetKeyDown(KeyCode.T))
-            MoveToHand();
-    }
 
     // 掴まれたら Player の手元(Hand)の子オブジェクトに移動する。移動した時のHandに対しての相対位置をあらかじめ決定しておく。
     // 手元へ移動するメソッド
@@ -48,13 +40,12 @@ public class Grabbable : MonoBehaviour
         // 親オブジェクトにPlayerのHandを指定
         // SetParent の挙動が指定した親の親にも依存してscale が変化してしまう。 なので、Scale(1, 1, 1) の空オブジェクト(今回は、Hand_root)作成し、object 構造に注意すること
         // or //ワールド座標系→ローカル座標系の係数を作成してあげるとか
-        transform.SetParent(HandTransform, true);
-        // transform.localScale = originalSize;
+        transform.SetParent(handTransform, true);
         // 移動した時のローカル位置を指定
-        if(SnapOffset!)
+        if(snapOffset!)
         {
-            transform.localPosition = SnapOffset.position;
-            transform.localRotation = SnapOffset.rotation;
+            transform.localPosition = snapOffset.position;
+            transform.localRotation = snapOffset.rotation;
         }
 
         InformGrabbedObjectName();
