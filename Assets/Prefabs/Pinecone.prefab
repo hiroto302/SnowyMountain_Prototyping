@@ -13,9 +13,8 @@ GameObject:
   - component: {fileID: 7454139665794649518}
   - component: {fileID: 9173474571129780599}
   - component: {fileID: 9173474571129780592}
-  - component: {fileID: 9173474571129780593}
-  - component: {fileID: 9173474571129780597}
   - component: {fileID: 9173474571129780598}
+  - component: {fileID: 1135971538}
   m_Layer: 7
   m_Name: Pinecone
   m_TagString: Untagged
@@ -30,7 +29,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9173474571129780594}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 49.94, y: 0.92, z: 41.83}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
@@ -116,8 +115,8 @@ MonoBehaviour:
   onInteractEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9173474571129780593}
-        m_TargetAssemblyTypeName: Grabbable, Assembly-CSharp
+      - m_Target: {fileID: 1135971538}
+        m_TargetAssemblyTypeName: GrabbableObject, Assembly-CSharp
         m_MethodName: MoveToHand
         m_Mode: 1
         m_Arguments:
@@ -128,35 +127,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &9173474571129780593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9173474571129780594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 716294cb17d854d85843008b2543817b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HandTransform: {fileID: 0}
-  SnapOffset: {fileID: 719436377239582624, guid: e07df34b3091441f0b2003ee667f949e, type: 3}
-  ObjectName: Pinecone
---- !u!114 &9173474571129780597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9173474571129780594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a2d75724b6834952bece5ca05d6e841, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentState: 0
-  objectName: Pinecone
+  pointer: {fileID: 21300000, guid: ec785b50e779a415e9734907475045af, type: 3}
 --- !u!54 &9173474571129780598
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -173,3 +144,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1135971538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9173474571129780594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 770e5c1eee3934aec9d8f00997526e12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handTransform: {fileID: 0}
+  snapOffset: {fileID: 719436377239582624, guid: e07df34b3091441f0b2003ee667f949e, type: 3}
+  ObjectName: Pinecone
+  currentState: 0
