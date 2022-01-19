@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public enum State { Normal, Waiting};
     public State state;
     // 移動を制御しているクラス
-    public FirstPersonPerspectiveController moveController;
+    [SerializeField] FirstPersonPerspectiveController moveController;
 
     // Player の State が変化した時に発生する event
     public event Action<State> onStateChange;
