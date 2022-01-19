@@ -24,8 +24,13 @@ public class Grabber : MonoBehaviour
     }
 
     // インタラクトして、GrabbableObject のスクリプトを持つなら手元へ移動した時に呼ばれる
+    // 既に物を掴んでいたら、掴んでいる物を離して新しいものを掴む
     public void GrabObject()
     {
+        // 既に物を掴んでいたら
+        if(state == State.Grabbing)
+            ReleaseGrabbedObject();
+
         grabbable = GetComponentInChildren<GrabbableObject>();
         SetState(State.Grabbing);
         GetObjectName(grabbable.ObjectName);
