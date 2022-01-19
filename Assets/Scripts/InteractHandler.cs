@@ -14,13 +14,17 @@ using System;
 
 public class InteractHandler : MonoBehaviour
 {
-    public GameObject CentralPointerPrefab;   // Player の中心点
-    public Sprite InteractablePointer;  // Player が相互作用可能なもの時の pointer
-    public Sprite NormalPointer;        // 通常時の pointer
+    [SerializeField] GameObject centralPointerPrefab;       // Player の中心点
+    [SerializeField] Sprite defaultInteractablePointer;  // Player が相互作用可能なもの時の デフォルトpointer
+    [SerializeField] Sprite normalPointer;        // 通常時の pointer
     Image pointerImage;                 // Image Componet : pointer の sprite を状況によって変更する箇所
     Vector3 originalPointerSize;        //  元のサイズ
+    Sprite interactablePointer;         // インタラクト時のポインター
 
     float interactRange = 2.0f;
+
+    Color defaultColor = new Color(1, 1, 1, 0.5f); // 半透明
+    Color interactColor = new Color(1, 1, 1, 1);   // インタラクト時の色
 
     // インタラクト可能なオブジェクトの名称
     public static string GrabbedObjectName = null;
@@ -30,13 +34,12 @@ public class InteractHandler : MonoBehaviour
 
     void Awake()
     {
-        // CenterPointer の生成
-        Instantiate(CentralPointerPrefab);
     }
 
     void Start()
     {
-
+        // CenterPointer の生成
+        Instantiate(centralPointerPrefab);
         var centerPoint= GameObject.Find("CenterPoint");
         if(centerPoint != null)
         {
@@ -47,8 +50,8 @@ public class InteractHandler : MonoBehaviour
 
     void Update()
     {
-        OnInteract[] targets = null;
-
+        // OnInteract[] targets = null;
+        OnInteract target = null;
 
         // ビューポート座標を介して、カメラからレイを飛ばす。ビューポート座標は正規化されカメラと関係し,カメラの左下は (0, 0) で、右上が (1, 1)
         // 引数(0.5, 0.5, 0.5) つまり画面の中央位置(アイコンのある位置)からray を飛ばす (ｚ座標は無視されてるよ)
@@ -61,51 +64,81 @@ public class InteractHandler : MonoBehaviour
         if(Physics.Raycast(ray, out hit, interactRange))
         {
             // hitしたオブジェクトの子オブジェクトにある全てのOnInteractスクリプトコンポーネントを取得
-            var interacts = hit.collider.gameObject.GetComponentsInChildren<OnInteract>();
-            if (interacts.Length > 0)
+            // var interacts = hit.collider.gameObject.GetComponentsInChildren<OnInteract>();
+            var interact = hit.collider.gameObject.GetComponentInChildren<OnInteract>();
+
+            // if (interacts.Length > 0)
+            // {
+            //     displayInteractable = true;
+            //     targets = interacts;
+            //     pointerImage.color = Color.white;
+
+            //     // interact 可能なobjectが 掴むことが可能なオブジェクトのとき
+
+            //     foreach (var target in targets)
+            //     {
+            //         // interact 可能な状態で無い時
+            //         if (!target.isActiveAndEnabled)
+            //         {
+            //             pointerImage.color = Color.grey;
+            //             break;
+            //         }
+            //     }
+            // }
+
+            // インタラクト可能なオブジェクトである時
+            if(interact!)
             {
                 displayInteractable = true;
-                targets = interacts;
-                pointerImage.color = Color.white;
+                target = interact;
 
-                // interact 可能なobjectが 掴むことが可能なオブジェクトのとき
-
-                foreach (var target in targets)
-                {
-                    // interact 可能な状態で無い時
-                    if (!target.isActiveAndEnabled)
-                    {
-                        pointerImage.color = Color.grey;
-                        break;
-                    }
-                }
+                if(target.pointer!)
+                    interactablePointer = target.pointer;
             }
         }
 
         // Interact した時に行うメソッドを実行 Input.GetKeyDown(KeyCode.E)
-        if (targets != null &&
+        // if (targets != null &&
+        //     (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.E)))
+        // {
+        //     foreach(var target in targets)
+        //     {
+        //         if(target.isActiveAndEnabled)
+        //             // OnInteract に登録されているメソッドを実行
+        //             target.Interact();
+        //     }
+        // }
+
+        if(target != null &&
             (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.E)))
         {
-            foreach(var target in targets)
-            {
-                if(target.isActiveAndEnabled)
-                    // OnInteract に登録されているメソッドを実行
-                    target.Interact();
-            }
+            target.Interact();
         }
 
         // InteractableObject に対するポインターの制御
         if(displayInteractable)
         {
             // sprite を変更し、サイズを大きくする
-            pointerImage.sprite = InteractablePointer;
-            pointerImage.transform.localScale = originalPointerSize * 1.5f;
+            // pointerImage.sprite = defaultInteractablePointer;
+            // pointerImage.transform.localScale = originalPointerSize * 1.5f;
+
+            if(interactablePointer == null)
+            {
+                pointerImage.sprite = defaultInteractablePointer;
+            }
+            else if(interactablePointer != null)
+            {
+                pointerImage.sprite = interactablePointer;
+            }
+            pointerImage.color = interactColor;
         }
         else
         {
-            pointerImage.sprite = NormalPointer;
-            pointerImage.color = Color.white;
+            pointerImage.sprite = normalPointer;
+            // pointerImage.color = Color.white;
+            pointerImage.color = defaultColor;
             pointerImage.transform.localScale = originalPointerSize;
+            interactablePointer = defaultInteractablePointer;
         }
     }
 }

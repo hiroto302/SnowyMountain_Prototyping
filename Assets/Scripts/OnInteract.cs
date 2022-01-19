@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 
 // このスクリプトコンポーネントは、Playerがシーン内のGameObjectとインタラクトしたときに発生するイベントを1つ以上指定する
@@ -19,6 +20,10 @@ public class OnInteract : MonoBehaviour
 
     bool hasBeenTriggered;  // 既に実行されたか
     float timer;            // 実行されてからどれほど経過したか
+
+    public Sprite pointer = null; // インタラクトされる時に表示するポインター
+
+
     void Start()
     {
         timer = cooldown;
