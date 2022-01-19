@@ -663,7 +663,19 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 9173474571129780593, guid: fcac104c522404c6b879d4e18432a995, type: 3}
+      propertyPath: ObjectName
+      value: Pinecone
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173474571129780593, guid: fcac104c522404c6b879d4e18432a995, type: 3}
+      propertyPath: snapOffset
+      value: 
+      objectReference: {fileID: 719436377239582624, guid: e07df34b3091441f0b2003ee667f949e, type: 3}
+    - target: {fileID: 9173474571129780593, guid: fcac104c522404c6b879d4e18432a995, type: 3}
       propertyPath: HandTransform
+      value: 
+      objectReference: {fileID: 1343898342}
+    - target: {fileID: 9173474571129780593, guid: fcac104c522404c6b879d4e18432a995, type: 3}
+      propertyPath: handTransform
       value: 
       objectReference: {fileID: 1343898342}
     - target: {fileID: 9173474571129780594, guid: fcac104c522404c6b879d4e18432a995, type: 3}
@@ -1071,6 +1083,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  pointer: {fileID: 21300000, guid: e210412c87f8c498888c8250706c3156, type: 3}
 --- !u!135 &754621292
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1099,6 +1112,7 @@ MonoBehaviour:
   source: {fileID: 754621294}
   sound:
   - {fileID: 8300000, guid: 76486062c05b2496e97db4c1a481b3e9, type: 3}
+  - {fileID: 8300000, guid: 9835833c6ebcc4183938eea6cfa68331, type: 3}
 --- !u!82 &754621294
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1957,7 +1971,19 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 9173474571129780593, guid: fcac104c522404c6b879d4e18432a995, type: 3}
+      propertyPath: ObjectName
+      value: Pinecone
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173474571129780593, guid: fcac104c522404c6b879d4e18432a995, type: 3}
+      propertyPath: snapOffset
+      value: 
+      objectReference: {fileID: 719436377239582624, guid: e07df34b3091441f0b2003ee667f949e, type: 3}
+    - target: {fileID: 9173474571129780593, guid: fcac104c522404c6b879d4e18432a995, type: 3}
       propertyPath: HandTransform
+      value: 
+      objectReference: {fileID: 1343898342}
+    - target: {fileID: 9173474571129780593, guid: fcac104c522404c6b879d4e18432a995, type: 3}
+      propertyPath: handTransform
       value: 
       objectReference: {fileID: 1343898342}
     - target: {fileID: 9173474571129780594, guid: fcac104c522404c6b879d4e18432a995, type: 3}
@@ -2325,6 +2351,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1550798021565891986, guid: 8b1dcbec20e9746dfb2fdaa9385e53f2, type: 3}
+      propertyPath: normalPointer
+      value: 
+      objectReference: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 1550798021565891986, guid: 8b1dcbec20e9746dfb2fdaa9385e53f2, type: 3}
+      propertyPath: interactablePointer
+      value: 
+      objectReference: {fileID: 21300000, guid: 46c496bc787c74a0b96617f74c5d3af4, type: 3}
+    - target: {fileID: 1550798021565891986, guid: 8b1dcbec20e9746dfb2fdaa9385e53f2, type: 3}
+      propertyPath: centralPointerPrefab
+      value: 
+      objectReference: {fileID: 5616403765960147496, guid: c0a24c7a4ad914bd8a5a498f794a3e10, type: 3}
+    - target: {fileID: 1550798021565891986, guid: 8b1dcbec20e9746dfb2fdaa9385e53f2, type: 3}
+      propertyPath: defaultInteractablePointer
+      value: 
+      objectReference: {fileID: 21300000, guid: 46c496bc787c74a0b96617f74c5d3af4, type: 3}
     - target: {fileID: 1550798021565891988, guid: 8b1dcbec20e9746dfb2fdaa9385e53f2, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -2372,6 +2414,14 @@ PrefabInstance:
     - target: {fileID: 1550798021565891994, guid: 8b1dcbec20e9746dfb2fdaa9385e53f2, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1550798022755253972, guid: 8b1dcbec20e9746dfb2fdaa9385e53f2, type: 3}
+      propertyPath: m_TagString
+      value: Hand
+      objectReference: {fileID: 0}
+    - target: {fileID: 1550798023234942617, guid: 8b1dcbec20e9746dfb2fdaa9385e53f2, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b1dcbec20e9746dfb2fdaa9385e53f2, type: 3}
@@ -28297,7 +28347,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7776585650079066060, guid: 31de3714553fa4606be53a054cf4acea, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31de3714553fa4606be53a054cf4acea, type: 3}
@@ -28969,6 +29019,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9173474571129780592, guid: fcac104c522404c6b879d4e18432a995, type: 3}
+      propertyPath: pointer
+      value: 
+      objectReference: {fileID: 21300000, guid: ec785b50e779a415e9734907475045af, type: 3}
+    - target: {fileID: 9173474571129780592, guid: fcac104c522404c6b879d4e18432a995, type: 3}
       propertyPath: onInteractEvent.m_PersistentCalls.m_Calls.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -28997,7 +29051,19 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 9173474571129780593, guid: fcac104c522404c6b879d4e18432a995, type: 3}
+      propertyPath: ObjectName
+      value: Pinecone
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173474571129780593, guid: fcac104c522404c6b879d4e18432a995, type: 3}
+      propertyPath: snapOffset
+      value: 
+      objectReference: {fileID: 719436377239582624, guid: e07df34b3091441f0b2003ee667f949e, type: 3}
+    - target: {fileID: 9173474571129780593, guid: fcac104c522404c6b879d4e18432a995, type: 3}
       propertyPath: HandTransform
+      value: 
+      objectReference: {fileID: 1343898342}
+    - target: {fileID: 9173474571129780593, guid: fcac104c522404c6b879d4e18432a995, type: 3}
+      propertyPath: handTransform
       value: 
       objectReference: {fileID: 1343898342}
     - target: {fileID: 9173474571129780594, guid: fcac104c522404c6b879d4e18432a995, type: 3}
