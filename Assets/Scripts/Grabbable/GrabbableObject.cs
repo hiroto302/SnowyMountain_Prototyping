@@ -28,9 +28,12 @@ public class GrabbableObject : MonoBehaviour
     }
     public State currentState;
 
-    // オブジェクトが掴む or 掴まれいる状態かの時に起こる event : 引数 掴んでいるもの名称
-    // public static event Action<string> OnChangeState;
+    // オブジェクトが掴まれた時に発生するイベント
     public static event Action OnGrabbed;
+
+    // 掴まれた時の効果音
+    [SerializeField] SE se = null;
+
 
     void Reset()
     {
@@ -59,6 +62,8 @@ public class GrabbableObject : MonoBehaviour
             transform.localPosition = snapOffset.position;
             transform.localRotation = snapOffset.rotation;
         }
+        // 掴んだ時の音
+        se.PlaySE(0);
 
         SetState(State.Grabbed);
 
