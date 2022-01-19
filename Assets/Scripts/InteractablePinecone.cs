@@ -5,6 +5,9 @@ using UnityEngine;
 // 掴まれて、炎の中に入れられた時行いこと
 // その松ぼっくりは掴まれいる状態なのか？
 // 掴まれている状態で、焚き火にインタラクトした時手元から消える(または円軌道を描いて炎の中へ)
+
+// 掴めるオブジェクトは GrabbableObject を継承したクラスで作成する。 Grabbable と Intractable オブジェクト名 を合わせた処理できようにした
+
 public class InteractablePinecone : MonoBehaviour
 {
     // 通常・掴まれている状態
@@ -28,13 +31,6 @@ public class InteractablePinecone : MonoBehaviour
         Grabbable.OnChangeState += ChangeState;
     }
 
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.F) && (currentState == State.Grabbed))
-        {
-
-        }
-    }
 
     void GoIntoFire()
     {
@@ -42,7 +38,7 @@ public class InteractablePinecone : MonoBehaviour
         if(currentState == State.Grabbed)
         {
             // 消す
-            InteractHandler.GrabbedObjectName = null;
+            // InteractHandler.GrabbedObjectName = null;
             Destroy(this.gameObject);
         }
     }
@@ -63,15 +59,15 @@ public class InteractablePinecone : MonoBehaviour
         //     SetState(State.Grabbed);
         // }
     }
-    public void ChangeCurrentState()
-    {
-        if(InteractHandler.GrabbedObjectName == objectName && currentState == State.Grabbed)
-        {
-            SetState(State.Normal);
-        }
-        else if(InteractHandler.GrabbedObjectName == objectName && currentState == State.Normal)
-        {
-            SetState(State.Grabbed);
-        }
-    }
+    // public void ChangeCurrentState()
+    // {
+    //     if(InteractHandler.GrabbedObjectName == objectName && currentState == State.Grabbed)
+    //     {
+    //         SetState(State.Normal);
+    //     }
+    //     else if(InteractHandler.GrabbedObjectName == objectName && currentState == State.Normal)
+    //     {
+    //         SetState(State.Grabbed);
+    //     }
+    // }
 }

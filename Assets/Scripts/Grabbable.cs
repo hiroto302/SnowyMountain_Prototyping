@@ -60,7 +60,7 @@ public class Grabbable : MonoBehaviour
         // transform.localScale = lossyScale;
 
         // 掴んでいる物なし
-        InteractHandler.GrabbedObjectName = null;
+        // InteractHandler.GrabbedObjectName = null;
         OnChangeState(ObjectName);
     }
 
@@ -77,7 +77,7 @@ public class Grabbable : MonoBehaviour
         // 掴んだ物に固有名詞がある時
         if(ObjectName != null)
         {
-            InteractHandler.GrabbedObjectName = ObjectName;
+            // InteractHandler.GrabbedObjectName = ObjectName;
         }
     }
 }
