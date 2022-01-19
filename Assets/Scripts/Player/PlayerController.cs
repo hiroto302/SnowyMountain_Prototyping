@@ -11,13 +11,22 @@ public class PlayerController : MonoBehaviour
     public State state;
     // 移動を制御しているクラス
     [SerializeField] FirstPersonPerspectiveController moveController;
-
+    // 物を掴む制御しているクラス
+    [SerializeField] Grabber grabber = null;
     // Player の State が変化した時に発生する event
     public event Action<State> onStateChange;
 
     void Awake()
     {
         SetState(State.Normal);
+    }
+
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Y))
+        {
+            grabber.ReleaseGrabbedObject();
+        }
     }
 
     // Player の状態を変更するメソッド

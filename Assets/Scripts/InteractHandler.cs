@@ -8,9 +8,9 @@ using System;
 // 実装したいこと
 // カーソルを中央に固定(プレイ中), 設定オプションなどを開いている時は自由に動かせるようにする
 // 中央に固定したカーソルのアイコンを変更
-// 他のオブジェクトと干渉できる場合はアイコンが変化できたりするようにする
+// 他のオブジェクトと干渉できる場合はアイコンが変化
 
-// 物を掴むこと、掴んでいることも考慮した実装を考えること
+// 物を掴むこと、掴んでいることも考慮することは Grabber クラスに任せる
 
 public class InteractHandler : MonoBehaviour
 {
@@ -26,11 +26,12 @@ public class InteractHandler : MonoBehaviour
     Color defaultColor = new Color(1, 1, 1, 0.5f); // 半透明
     Color interactColor = new Color(1, 1, 1, 1);   // インタラクト時の色
 
-    // インタラクト可能なオブジェクトの名称
-    public static string GrabbedObjectName = null;
-    // Player が物を掴んだ時に発生する event
-    // 掴んでいる物が何なのか判断するため
-    // public static event Action<string> OnGrabbedObject;
+    // 物を掴んでいる状態か
+    public enum State
+    {
+        Normal,
+        Grabbing
+    }
 
     void Awake()
     {

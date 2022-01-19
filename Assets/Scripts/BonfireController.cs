@@ -59,11 +59,18 @@ public class BonfireController : MonoBehaviour
     // 火の中の松ぼっくりを入れた時に発生するメソッド
     public void PutPineconeIntoFire()
     {
-        if(InteractHandler.GrabbedObjectName == "Pinecone")
+        // if(InteractHandler.GrabbedObjectName == "Pinecone")
+        // {
+        //     InFirePineconesNum ++;
+        //     IntoFire();
+        //     Ignite();
+        // }
+
+        if( Grabber.GrabbingObjectName == "Pinecone" )
         {
             InFirePineconesNum ++;
-            IntoFire();
             Ignite();
+            IntoFire.Invoke();
         }
     }
 }
