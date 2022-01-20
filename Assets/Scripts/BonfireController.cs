@@ -26,6 +26,9 @@ public class BonfireController : MonoBehaviour
     [SerializeField]
     AudioSource fireParticeAudioSource = null;
 
+    [SerializeField]
+    MessageSender messageSender = null;
+
     void Start()
     {
         fireParticeAudioSource.Play();
@@ -71,6 +74,11 @@ public class BonfireController : MonoBehaviour
             InFirePineconesNum ++;
             Ignite();
             IntoFire.Invoke();
+        }
+        else
+        {
+            // 松ぼっくりが無いことを伝える
+            messageSender.SendMessage(0);
         }
     }
 }
