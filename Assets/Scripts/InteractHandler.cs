@@ -35,12 +35,12 @@ public class InteractHandler : MonoBehaviour
 
     void Awake()
     {
+        // CenterPointer の生成
+        Instantiate(centralPointerPrefab);
     }
 
     void Start()
     {
-        // CenterPointer の生成
-        Instantiate(centralPointerPrefab);
         var centerPoint= GameObject.Find("CenterPoint");
         if(centerPoint != null)
         {
