@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 // Image を fade させるクラス
 // fade out : 透明度を徐々に減少(1 黒  => 0透明)
@@ -41,6 +42,12 @@ public class FadeImage : MonoBehaviour
         fadeImageCoroutine = StartCoroutine(FadeOutImageRoutine(second));
     }
 
+    // fade In して  fade Out するメソッド
+    public void FadeInToOut(float second, float duration, Action action = null)
+    {
+        fadeImageCoroutine = StartCoroutine(FadeInToOutImageRoutine(second, duration, action));
+    }
+
     // alfa 0 => 1 に second の時間をかけて増加させていく
     IEnumerator FadeInImageRoutine(float second)
     {
@@ -70,6 +77,45 @@ public class FadeImage : MonoBehaviour
         alfa = 1;                       // 透明度の初期値
         float waitForSecond = 0.05f;     // 待機時間
         float fadeRate = 1.0f / second;  // fade率 : 1秒間あたりの増加率
+        while(true)
+        {
+            elapsedTime += waitForSecond;
+            if(elapsedTime >= second)
+            {
+                break;
+            }
+            yield return new WaitForSeconds(waitForSecond);
+            alfa = 1.0f - fadeRate * elapsedTime;
+            image.color = new Color(red, green, blue, alfa);
+        }
+        image.color = new Color(red, green, blue, 0);
+        StopCoroutine(fadeImageCoroutine);
+        fadeImageCoroutine = null;
+    }
+
+    IEnumerator FadeInToOutImageRoutine(float second, float duration, Action action = null)
+    {
+        float elapsedTime = 0;          // 経過時間
+        alfa = 0;                       // 透明度の初期値
+        float waitForSecond = 0.05f;     // 待機時間
+        float fadeRate = 1.0f / second;  // fade率 : 1秒間あたりの増加率
+        while(true)
+        {
+            elapsedTime += waitForSecond;
+            if(elapsedTime >= second)
+            {
+                break;
+            }
+            yield return new WaitForSeconds(waitForSecond);
+            alfa = fadeRate * elapsedTime;
+            image.color = new Color(red, green, blue, alfa);
+        }
+        alfa = 1.0f;
+        image.color = new Color(red, green, blue, alfa);
+        if(action != null)
+            action();
+        yield return new WaitForSeconds(duration);
+        elapsedTime = 0;
         while(true)
         {
             elapsedTime += waitForSecond;
