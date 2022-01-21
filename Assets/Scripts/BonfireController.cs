@@ -79,6 +79,7 @@ public class BonfireController : MonoBehaviour
         {
             // 松ぼっくりが無いことを伝える
             messageSender.SendMessage(0);
+            se.PlaySE(2);
         }
     }
 }
