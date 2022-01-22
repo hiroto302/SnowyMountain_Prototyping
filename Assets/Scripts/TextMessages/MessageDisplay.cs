@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 // 送信されてきたメッセージを受信後、受信したメッセージを表示するクラス
 // メッセージを表示するために, 非表示にしてある object を表示
@@ -13,6 +14,12 @@ public class MessageDisplay : MonoBehaviour
     [SerializeField] GameObject displayer = null;
 
     Coroutine fadeDisplayerCoroutine = null;
+    // 表示し始める時に発生する event
+    public static event Action OnDisplayMessage;
+    // 表示が完了した時に発生する event
+    public static event Action OnCompletDisplay;
+
+
     void Start()
     {
         if(text == null)
@@ -29,11 +36,15 @@ public class MessageDisplay : MonoBehaviour
     // メッセージの表示
     public void DisplayMessage(string message)
     {
-        displayer.SetActive(true);
-        text.color = new Color(1, 1, 1, 1);
-        text.text = message;
+        // メッセージのfade 処理中でない時
         if(fadeDisplayerCoroutine == null)
+        {
+            OnDisplayMessage();
+            displayer.SetActive(true);
+            text.color = new Color(1, 1, 1, 1);
+            text.text = message;
             fadeDisplayerCoroutine = StartCoroutine(FadeOutDisplayerRoutine(2.5f));
+        }
     }
 
     // 一定時間後、表示した文字をfadeOutさせ、displayer を非表示にする
@@ -61,5 +72,8 @@ public class MessageDisplay : MonoBehaviour
         StopCoroutine(fadeDisplayerCoroutine);
         fadeDisplayerCoroutine = null;
         displayer.SetActive(false);
+
+        // 表示が終了したら発生するevent (次のメッセージがある場合,表示したいため)
+        OnCompletDisplay();
     }
 }
