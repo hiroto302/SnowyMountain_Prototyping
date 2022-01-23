@@ -21,4 +21,13 @@ public class MessageSender : MonoBehaviour
         if(OnSendMessage != null)
             OnSendMessage(message);
     }
+
+    // 全てのメッセージを送信
+    public void SendAllMessages()
+    {
+        foreach(string message in data.TextMessages)
+        {
+            OnSendMessage(message);
+        }
+    }
 }
