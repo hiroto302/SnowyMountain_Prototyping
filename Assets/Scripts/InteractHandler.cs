@@ -121,7 +121,6 @@ public class InteractHandler : MonoBehaviour
         {
             // sprite を変更し、サイズを大きくする
             // pointerImage.sprite = defaultInteractablePointer;
-            // pointerImage.transform.localScale = originalPointerSize * 1.5f;
 
             if(interactablePointer == null)
             {
@@ -131,6 +130,7 @@ public class InteractHandler : MonoBehaviour
             {
                 pointerImage.sprite = interactablePointer;
             }
+            pointerImage.transform.localScale = originalPointerSize * 1.5f;
             pointerImage.color = interactColor;
         }
         else
