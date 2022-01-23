@@ -27,6 +27,11 @@ public class PlayerController : MonoBehaviour
         {
             grabber.ReleaseGrabbedObject();
         }
+
+        if(Input.GetKey(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     // Player の状態を変更するメソッド

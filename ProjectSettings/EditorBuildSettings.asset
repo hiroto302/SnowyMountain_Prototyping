@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/PlayerControllerScene.unity
-    guid: e7ecb431a8a704ff3a6438305592bd2b
+    path: Assets/Scenes/SnowyMoutainScene_evening2.unity
+    guid: 54620045cfe344d8985d0bfbf4dee020
   m_configObjects: {}
