@@ -29,6 +29,11 @@ public class BonfireController : MonoBehaviour
     [SerializeField]
     MessageSender messageSender = null;
 
+    Coroutine callbackCoroutine;
+    // ゲームの目標達成時に発生する event
+    public static event Action OnCompletGoal;
+
+
     void Start()
     {
         fireParticeAudioSource.Play();
@@ -46,6 +51,11 @@ public class BonfireController : MonoBehaviour
             fireParticeAudioSource.volume = 0.3f;
             if(IgniteParticle!)
                 IgniteParticle.Play();
+
+            // 発火したら GameEnging
+            messageSender.SendMessage(1);
+            // 目標の達成
+            ExecuteMethodDelay(OnCompletGoal, 5.0f);
         }
         // 発火条件を満たさない時
         else
@@ -55,7 +65,6 @@ public class BonfireController : MonoBehaviour
                 IgniteParticle.Play();
                 se.PlaySE(1);
             }
-
         }
     }
 
@@ -81,5 +90,22 @@ public class BonfireController : MonoBehaviour
             messageSender.SendMessage(0);
             se.PlaySE(2);
         }
+    }
+
+    // メソッドを遅延させて実行するメソッド
+    void ExecuteMethodDelay(Action onComplet, float delayTime)
+    {
+        callbackCoroutine = StartCoroutine(CallBackRoutine(onComplet, delayTime));
+    }
+
+    public IEnumerator CallBackRoutine(Action onComplet, float delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+        if(onComplet != null)
+        {
+            onComplet();
+        }
+        StopCoroutine(callbackCoroutine);
+        callbackCoroutine = null;
     }
 }
