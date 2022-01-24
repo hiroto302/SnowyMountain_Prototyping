@@ -30,7 +30,7 @@ public class ParticleSystemSound:MonoBehaviour{
 		int length = GetComponent<ParticleSystem>().GetParticles(particles);
 		int i = 0;
 		while (i < length){
-	 		if(_explosionSound.Length > 0 && particles[i].lifetime < Time.deltaTime){
+	 		if(_explosionSound.Length > 0 && particles[i].remainingLifetime < Time.deltaTime){
 	 			SoundController.instance.Play(_explosionSound[UnityEngine.Random.Range(0, _explosionSound.Length)], UnityEngine.Random.Range(_explosionVolumeMax,_explosionVolumeMin), UnityEngine.Random.Range(_explosionPitchMin,_explosionPitchMax), particles[i].position);
 				if(_crackleSound.Length > 0){
 				for(int j = 0; j <_crackleMultiplier; j++){
@@ -38,7 +38,7 @@ public class ParticleSystemSound:MonoBehaviour{
 				}
 	 		}
 	 		}
-	 		if(_shootSound.Length > 0 && particles[i].lifetime >= particles[i].startLifetime-Time.deltaTime){
+	 		if(_shootSound.Length > 0 && particles[i].remainingLifetime >= particles[i].startLifetime-Time.deltaTime){
 	 			SoundController.instance.Play(_shootSound[UnityEngine.Random.Range(0, _shootSound.Length)], UnityEngine.Random.Range(_shootVolumeMax,_shootVolumeMin), UnityEngine.Random.Range(_shootPitchMin,_shootPitchMax), particles[i].position);
 			}
 			i++;
