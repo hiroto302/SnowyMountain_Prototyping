@@ -68,21 +68,22 @@ public class BonfireController : MonoBehaviour
         }
     }
 
-    // 火の中の松ぼっくりを入れた時に発生するメソッド
-    public void PutPineconeIntoFire()
+    // オブジェクトを火の中に入れた時に呼ばれるメソッド
+    public void PutObjectIntoFire()
     {
-        // if(InteractHandler.GrabbedObjectName == "Pinecone")
-        // {
-        //     InFirePineconesNum ++;
-        //     IntoFire();
-        //     Ignite();
-        // }
-
+        // 火の中の松ぼっくりを入れた時
         if( Grabber.GrabbingObjectName == "Pinecone" )
         {
             InFirePineconesNum ++;
             Ignite();
             IntoFire.Invoke();
+        }
+        // 花火を入れた時
+        else if( Grabber.GrabbingObjectName == "Firework" )
+        {
+            IntoFire.Invoke();
+            IgniteParticle.Play();
+            se.PlaySE(1);
         }
         else
         {
@@ -90,7 +91,19 @@ public class BonfireController : MonoBehaviour
             messageSender.SendMessage(0);
             se.PlaySE(2);
         }
+
+        
     }
+
+    // 花火を入れた時に実行するメソッド
+    public void PutFireworkIntoFire()
+    {
+
+    }
+
+
+
+
 
     // メソッドを遅延させて実行するメソッド
     void ExecuteMethodDelay(Action onComplet, float delayTime)
