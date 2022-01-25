@@ -25,9 +25,7 @@ public class FireworksSystemSound : MonoBehaviour
     void LateUpdate()
     {
         ParticleSystem.Particle[] particles = new ParticleSystem.Particle[GetComponent<ParticleSystem>().particleCount];
-        Debug.Log(particles + " : particles");
         int length = GetComponent<ParticleSystem>().GetParticles(particles);
-        Debug.Log(length + " : length");
         int i = 0;
         while(i < length)
         {
