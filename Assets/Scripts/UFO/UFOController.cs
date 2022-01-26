@@ -11,21 +11,33 @@ public class UFOController : MonoBehaviour
     [SerializeField] GameObject treesParent = null;
     // 落下後の壊された木
     [SerializeField] GameObject brokenTreesParent = null;
+    // 乗っているエイリアン
+    [SerializeField] List<GameObject> aliens = null;
 
     void Start()
     {
         TimelineDirector.OnFallUFO += HandleFallenUFO;
     }
-
+    // UFOが墜落した時に行う処理
     void HandleFallenUFO()
     {
         ChangeEnvironmentObject();
+        AppearAliens();
     }
 
+    //  環境オブジェクトの更新
     void ChangeEnvironmentObject()
     {
         fallenUFO.SetActive(true);
         treesParent.SetActive(false);
         brokenTreesParent.SetActive(true);
+    }
+    // エイリアンを出現する
+    void AppearAliens()
+    {
+        foreach(GameObject alien in aliens)
+        {
+            alien.SetActive(true);
+        }
     }
 }
