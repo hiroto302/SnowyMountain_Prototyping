@@ -13,6 +13,10 @@ public class FootstepManager : MonoBehaviour
     Terrain terrain;
     TerrainData terrainData;
 
+    // 複数の terrain
+    Terrain[] terrains;
+    TerrainData[] terrainsData;
+
     // editor 上でパラメータを編集できる AudioClips クラス : タグに対応した audioClip の list を持たせる
     [System.Serializable]
     public class AudioClips
@@ -49,14 +53,22 @@ public class FootstepManager : MonoBehaviour
         // Terrain Data	: ハイトマップ、Terrain のテクスチャ、ディテールメッシュ、Tree を格納する TerrainData アセット。
         // ここから、テクスチャの情報を取得したい
         terrainData = terrain.terrainData;
-        Debug.Log(terrain + " : terrain");         // Terrain_0_0_c76ae34e-ea64-4a40-b106-7182d18cc6bc
-        Debug.Log(terrainData + " : terrainData"); // Terrain_0_0_SnowyMountain
+        // Debug.Log(terrain + " : terrain");         // Terrain_0_0_c76ae34e-ea64-4a40-b106-7182d18cc6bc
+        // Debug.Log(terrainData + " : terrainData"); // Terrain_0_0_SnowyMountain
+
+        // 複数の terain と対応した terrainData 取得
+        terrains = Terrain.activeTerrains;
+        terrainsData = new TerrainData[terrains.Length];
+        Debug.Log(terrains.Length + " : terrains.Length");
+        for(int i = 0; i < terrains.Length; i++)
+        {
+            terrainsData[i] = terrains[i].terrainData;
+        }
     }
 
     // プレイヤーが歩いているサーフェイスの種類を検出する処理
     // 今回作成したPlayerには、アニメーションで制御するような足は無いので常に足がついている状態。なので OnTriggerEnter(足が交互に着くたびに呼ばれる) ではなく
     // OnTriggerStay で呼び出し続けける。
-    // terrain を２つにした時、かつ 水を踏んだ時、groundIndex を正しく取得することができなくなる。音バグ。
     void OnTriggerStay(Collider other)
     {
         // 歩いている地表を判断
@@ -64,6 +76,7 @@ public class FootstepManager : MonoBehaviour
         if(tagToIndex.ContainsKey(other.gameObject.tag))
             groundIndex = tagToIndex[other.gameObject.tag];
 
+        /*
         // terrainの地表の種類を判定する方法
         // 接触したobjectが Start() で取得した terrain object と一致するとき
         // 下記の記述を 配列で取得した terrain に対応するようにいいかも！
@@ -90,7 +103,23 @@ public class FootstepManager : MonoBehaviour
             // 現在踏んでいる地面の種類番号を取得
             groundIndex = tagToIndex[terrainLayerToTag[terrainLayer]];
         }
-        // Debug.Log(groundIndex + ": groundIndex");
+        */
+
+        // 複数の terrain に対応
+        for(int i = 0; i < terrains.Length; i++)
+        {
+            if( other.gameObject.GetInstanceID() == terrains[i].gameObject.GetInstanceID())
+            {
+                Vector3 position = transform.position - terrains[i].transform.position;
+                int offsetX = (int)(terrainsData[i].alphamapWidth / terrainsData[i].size.x * position.x);
+                // Debug.Log("ここまで実行されたよ");
+                int offsetZ = (int)(terrainsData[i].alphamapHeight / terrainsData[i].size.z * position.z);
+                float[,,] alphamaps = terrainsData[i].GetAlphamaps(offsetX, offsetZ, 1, 1);
+                float[] weights = alphamaps.Cast<float>().ToArray();
+                int terrainLayer = System.Array.IndexOf(weights, weights.Max());
+                groundIndex = tagToIndex[terrainLayerToTag[terrainLayer]];
+            }
+        }
     }
 
     public void PlayFootstepSE()
