@@ -7,22 +7,7 @@ using System.Linq;
 // terrain の地表テクスチャに対応した足音がなるように実装する
 public class FootstepManager : MonoBehaviour
 {
-    [SerializeField]
-    AudioSource source;
-    // 各地面に適応した地面の足音
-    // オーディオエフェクトの繰り返しは、いずれ必ず気付かれ、かなり煩わしくなる可能性がある
-    // 人は一歩一歩、足の置き方が変わるので、音も大きく変わってきます。何百種類もの足音音声を用意するのは無理だが、
-    // ほんの少しであれば、繰り返しの効果に気づかれないこともある。なのでバリエーションを増やすために List 型。
-    public List<AudioClip> snowSteps = new List<AudioClip>();
-    public List<AudioClip> sandSteps = new List<AudioClip>();
-    public List<AudioClip> waterSteps = new List<AudioClip>();
-
-    // 地表の変数
-    enum Surface {snow, sand, water};
-    Surface surface;
-    // 現在playerが立っている地表に対応した複数の足音 AudioClip の list を格納
-    List<AudioClip> currentStepsList;
-
+    [SerializeField] AudioSource source;
 
     // terrain で地表を判断して音を鳴らすための変数群
     Terrain terrain;
@@ -58,47 +43,14 @@ public class FootstepManager : MonoBehaviour
     void Start()
     {
         // main terrain を取得
+        // terrain が２つある時、もう一方の方を取得してしまっている。
+        // 取得したterrainの範囲外になった時、取得し直すのもありかも
         terrain = Terrain.activeTerrain;
         // Terrain Data	: ハイトマップ、Terrain のテクスチャ、ディテールメッシュ、Tree を格納する TerrainData アセット。
         // ここから、テクスチャの情報を取得したい
         terrainData = terrain.terrainData;
-        // Debug.Log(terrain + " : terrain");         // Terrain_0_0_c76ae34e-ea64-4a40-b106-7182d18cc6bc
-        // Debug.Log(terrainData + " : terrainData"); // Terrain_0_0_SnowyMountain
-    }
-
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.G))
-        {
-            PlayFootstepSE();
-        }
-    }
-
-    // 足音を鳴らすメソッド
-    // 任意のタイミングでならそう
-    public void PlayStep()
-    {
-        // ランダムに音を格納
-        AudioClip clip = currentStepsList[Random.Range(0, currentStepsList.Count)];
-        // 再生
-        source.PlayOneShot(clip);
-    }
-
-    // 地表に対応した音を currentStepsListに格納
-    void SelectStepList()
-    {
-        switch (surface)
-        {
-            case Surface.snow:
-                currentStepsList = snowSteps;
-                break;
-            case Surface.sand:
-                currentStepsList = sandSteps;
-                break;
-            case Surface.water:
-                currentStepsList = waterSteps;
-                break;
-        }
+        Debug.Log(terrain + " : terrain");         // Terrain_0_0_c76ae34e-ea64-4a40-b106-7182d18cc6bc
+        Debug.Log(terrainData + " : terrainData"); // Terrain_0_0_SnowyMountain
     }
 
     // プレイヤーが歩いているサーフェイスの種類を検出する処理
@@ -107,28 +59,14 @@ public class FootstepManager : MonoBehaviour
     // terrain を２つにした時、かつ 水を踏んだ時、groundIndex を正しく取得することができなくなる。音バグ。
     void OnTriggerStay(Collider other)
     {
-        // 歩いている地表を判断したら SelectStepListを実行する
-        // タグを利用した方法
-        // 水面であるか判定
-        // if(other.gameObject.tag == "Water")
-        // {
-        //     surface = Surface.water;
-        //     SelectStepList();
-        // }
-        // if(tagToIndex.ContainsKey(other.gameObject.tag))
-        //     groundIndex = tagToIndex[other.gameObject.tag];
-        if(tagToIndex.ContainsKey(other.gameObject.tag))
-        {
-            Debug.Log("水タグ取得");
-            groundIndex = tagToIndex[other.gameObject.tag];
-        }
-
-        // terrainの地表の種類を判定す方法
-        // タグを取得したい時(terrain で作成されていない waterなど)
+        // 歩いている地表を判断
+        // タグを利用した地表種類を判定する方法 : タグを取得したい時(terrain で作成されていない waterなど)
         if(tagToIndex.ContainsKey(other.gameObject.tag))
             groundIndex = tagToIndex[other.gameObject.tag];
 
-        // 接触したobjectが main terrain の時
+        // terrainの地表の種類を判定する方法
+        // 接触したobjectが Start() で取得した terrain object と一致するとき
+        // 下記の記述を 配列で取得した terrain に対応するようにいいかも！
         if(other.gameObject.GetInstanceID() == terrain.gameObject.GetInstanceID())
         {
             // terrain から現在値の Alphamap を取得
@@ -152,7 +90,7 @@ public class FootstepManager : MonoBehaviour
             // 現在踏んでいる地面の種類番号を取得
             groundIndex = tagToIndex[terrainLayerToTag[terrainLayer]];
         }
-        Debug.Log(groundIndex + ": groundIndex");
+        // Debug.Log(groundIndex + ": groundIndex");
     }
 
     public void PlayFootstepSE()
