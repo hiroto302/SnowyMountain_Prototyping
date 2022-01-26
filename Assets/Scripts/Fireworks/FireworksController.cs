@@ -11,7 +11,6 @@ public class FireworksController : MonoBehaviour
     public void ShootFireworks()
     {
         shootCoroutine = StartCoroutine(ShootRoutine());
-        Debug.Log("打つよ");
     }
 
     // セットされている花火を生成
