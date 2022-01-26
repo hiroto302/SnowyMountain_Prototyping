@@ -7,12 +7,15 @@ using System;
 // ゲームクリア後の制御
 // 夕暮れから夜になる
 // 星を輝かせる
-// 花火が炸裂した時は、友人が出現。食器とか食べ物を置いて和気藹々な雰囲気な中終了
-// やはり文字を表示できたらいいよね
+// 分岐を作成 : 花火を破裂させた時は 仲良しエンド, 松ぼっくりを燃やしただけなら 通常エンド
 
 public class EndingController : MonoBehaviour
 {
-    public bool IsEnding = false;
+    // public bool IsEnding = false;
+    // エンディングパターン
+    public enum EndingPattern {Normal, Good};
+    EndingPattern endingPattern = EndingPattern.Normal;
+    // Player
     [SerializeField] GameObject player = null;
     // ending が始まる時のplayer の位置
     [SerializeField] Transform endingTransform = null;
@@ -23,20 +26,34 @@ public class EndingController : MonoBehaviour
     // 色
     Color nightColor;
     FadeImage fadeImage;
-
     [SerializeField] Material nightSky = null;
-    [SerializeField] MessageSender messageSender = null;
-    Coroutine callbackCoroutine = null;
+    // 通常エンドのメッセージ
+    [SerializeField] MessageSender normalMessageSender = null;
+    // 仲良しエンドのメッセージ
+    [SerializeField] MessageSender goodMessageSender = null;
+    // クリア後出現させる宇宙人
+    [SerializeField] List<GameObject> appearingAliens = null;
+    // クリア前に元々いた宇宙人
+    [SerializeField] List<GameObject> disappearingAliens = null;
 
+    Coroutine callbackCoroutine = null;
 
     void Start()
     {
         fadeImage = FindObjectOfType<FadeImage>();
         // ゲームのの目標が達成された時に呼ばれるメソッド
-        BonfireController.OnCompletGoal += OnHandleCompletGoal ;
+        BonfireController.OnCompletGoal += HandleOnCompletGoal ;
+        // 花火が発火された時に呼ばれるメソッド
+        GrabbableFirework.OnIgniteFirework += HandleOnIgniteFirework;
     }
 
-    void OnHandleCompletGoal()
+    void HandleOnIgniteFirework()
+    {
+        // 花火が発火されたら good end
+        endingPattern = EndingPattern.Good;
+    }
+
+    void HandleOnCompletGoal()
     {
         EndGame();
     }
@@ -47,9 +64,7 @@ public class EndingController : MonoBehaviour
         // フェード中に Ending の環境に変化 計７秒の処理
         fadeImage.FadeInToOut(3.0f, 1.0f, SetEndingGame);
         // 終了文字を表示
-        ExecuteMethodDelay(SendMessage, 7.5f);
-        // 隕石とか流れ星とか降らせたい
-        // ステージの美化
+        ExecuteMethodDelay(SendEndingMessage, 7.5f);
     }
 
     void SetEndingGame()
@@ -71,12 +86,33 @@ public class EndingController : MonoBehaviour
         player.transform.position = endingTransform.position;
         player.transform.rotation = endingTransform.rotation;
         player.GetComponent<PlayerController>().SetState(PlayerController.State.Normal);
+
+        // 仲良しエンドの時 エイリアンを配置
+        if(endingPattern == EndingPattern.Good)
+        {
+            foreach(GameObject alien in appearingAliens)
+            {
+                alien.SetActive(true);
+            }
+            foreach(GameObject alien in disappearingAliens)
+            {
+                alien.SetActive(false);
+            }
+        }
     }
 
-    void SendMessage()
+    void SendEndingMessage()
     {
-        messageSender.SendAllMessages();
+        if(endingPattern == EndingPattern.Normal)
+        {
+            normalMessageSender.SendAllMessages();
+        }
+        else if( endingPattern == EndingPattern.Good)
+        {
+            goodMessageSender.SendAllMessages();
+        }
     }
+
 
 
 

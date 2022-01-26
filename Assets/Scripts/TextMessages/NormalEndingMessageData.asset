@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45ec3cb75e3b74fc096215dbb06ec580, type: 3}
-  m_Name: EndingMessageData
+  m_Name: NormalEndingMessageData
   m_EditorClassIdentifier: 
   _Name: EndingController
   _TextMessages:
   - We managed to make it through the freezing night.
   - Take a walk freely. And you're free to quit at any time.
-  - ' ~ END ~'
+  - ' ~ Normal END ~'
