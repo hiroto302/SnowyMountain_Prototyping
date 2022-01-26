@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45ec3cb75e3b74fc096215dbb06ec580, type: 3}
   m_Name: Alien_Male
   m_EditorClassIdentifier: 
-  _Name: 
-  _TextMessages: []
+  _Name: A.M
+  _TextMessages:
+  - Shit! I want to gouge out my eyes ...
