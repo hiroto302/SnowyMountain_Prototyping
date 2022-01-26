@@ -104,6 +104,7 @@ public class FootstepManager : MonoBehaviour
     // プレイヤーが歩いているサーフェイスの種類を検出する処理
     // 今回作成したPlayerには、アニメーションで制御するような足は無いので常に足がついている状態。なので OnTriggerEnter(足が交互に着くたびに呼ばれる) ではなく
     // OnTriggerStay で呼び出し続けける。
+    // terrain を２つにした時、かつ 水を踏んだ時、groundIndex を正しく取得することができなくなる。音バグ。
     void OnTriggerStay(Collider other)
     {
         // 歩いている地表を判断したら SelectStepListを実行する
@@ -114,8 +115,13 @@ public class FootstepManager : MonoBehaviour
         //     surface = Surface.water;
         //     SelectStepList();
         // }
+        // if(tagToIndex.ContainsKey(other.gameObject.tag))
+        //     groundIndex = tagToIndex[other.gameObject.tag];
         if(tagToIndex.ContainsKey(other.gameObject.tag))
+        {
+            Debug.Log("水タグ取得");
             groundIndex = tagToIndex[other.gameObject.tag];
+        }
 
         // terrainの地表の種類を判定す方法
         // タグを取得したい時(terrain で作成されていない waterなど)
@@ -146,6 +152,7 @@ public class FootstepManager : MonoBehaviour
             // 現在踏んでいる地面の種類番号を取得
             groundIndex = tagToIndex[terrainLayerToTag[terrainLayer]];
         }
+        Debug.Log(groundIndex + ": groundIndex");
     }
 
     public void PlayFootstepSE()
