@@ -59,7 +59,6 @@ public class FootstepManager : MonoBehaviour
         // 複数の terain と対応した terrainData 取得
         terrains = Terrain.activeTerrains;
         terrainsData = new TerrainData[terrains.Length];
-        Debug.Log(terrains.Length + " : terrains.Length");
         for(int i = 0; i < terrains.Length; i++)
         {
             terrainsData[i] = terrains[i].terrainData;
@@ -105,19 +104,27 @@ public class FootstepManager : MonoBehaviour
         }
         */
 
-        // 複数の terrain に対応
+        /* 複数の terrain に対応
+        テクスチャの矩形が範囲外です（512 + 1 > 512） UnityEngine.TerrainData:GetAlphamaps（int,int,int）。
+        ワープの瞬間的な動きには問題なく動く。terrain を跨ぐと発生する。
+        跨ぐとき、つまり、両方のテレインを踏んでいる時、下記の処理にどのような変化おこる？
+        alphamaps に渡す引数が 512 より高い、または 0以下になってしまう。これは今回のPlay を模倣している足のコライダーサイズがでかいため発生してしまう。
+        今回は、この処理の問題が発生しないようにする。
+        */
         for(int i = 0; i < terrains.Length; i++)
         {
             if( other.gameObject.GetInstanceID() == terrains[i].gameObject.GetInstanceID())
             {
                 Vector3 position = transform.position - terrains[i].transform.position;
                 int offsetX = (int)(terrainsData[i].alphamapWidth / terrainsData[i].size.x * position.x);
-                // Debug.Log("ここまで実行されたよ");
                 int offsetZ = (int)(terrainsData[i].alphamapHeight / terrainsData[i].size.z * position.z);
-                float[,,] alphamaps = terrainsData[i].GetAlphamaps(offsetX, offsetZ, 1, 1);
-                float[] weights = alphamaps.Cast<float>().ToArray();
-                int terrainLayer = System.Array.IndexOf(weights, weights.Max());
-                groundIndex = tagToIndex[terrainLayerToTag[terrainLayer]];
+                if( offsetX < terrainsData[i].alphamapWidth  && offsetZ < terrainsData[i].alphamapHeight && 0 <= offsetX && 0 <= offsetZ)
+                {
+                    float[,,] alphamaps = terrainsData[i].GetAlphamaps(offsetX, offsetZ, 1, 1);
+                    float[] weights = alphamaps.Cast<float>().ToArray();
+                    int terrainLayer = System.Array.IndexOf(weights, weights.Max());
+                    groundIndex = tagToIndex[terrainLayerToTag[terrainLayer]];
+                }
             }
         }
     }
