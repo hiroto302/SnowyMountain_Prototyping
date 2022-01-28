@@ -40,6 +40,7 @@ public class FirstPersonPerspectiveController : MonoBehaviour
     [SerializeField]
     FootstepManager footstepManager = null;
     float elapsedTime = 0;
+    float footstepInterval = 0.8f; // 足音が鳴る間隔
 
     // 移動を行うことが可能であるか
     public bool isMovable;
@@ -179,16 +180,28 @@ public class FirstPersonPerspectiveController : MonoBehaviour
         // 左右方向取得
         Vector3 rightDirection = transform.right;
 
+        // 走り or 歩き
+        if(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        {
+            MovementSpeed = 4.5f;
+            footstepInterval = 0.6f;
+        }
+        else
+        {
+            MovementSpeed = 3.0f;
+            footstepInterval = 0.8f;
+        }
+
         // 前後左右の移動
         // 上下の移動は、重力がPlayerにかかるようデフォルトのまま。上書きしないように
         Vector3 forceDirection = (rightDirection * inputValueX + frontDirection.normalized * inputValueZ)  * MovementSpeed;
         rb.velocity = new Vector3(forceDirection.x, rb.velocity.y, forceDirection.z);
 
         // 足音
-        if(Mathf.Abs(inputValueX) > 0.8f || Mathf.Abs(inputValueZ) > 0.8f)
+        if(Mathf.Abs(inputValueX) > footstepInterval || Mathf.Abs(inputValueZ) > footstepInterval)
         {
             elapsedTime += Time.fixedDeltaTime;
-            if(elapsedTime > 0.8f)
+            if(elapsedTime > footstepInterval)
             {
                 footstepManager.PlayFootstepSE();
                 elapsedTime = 0;
