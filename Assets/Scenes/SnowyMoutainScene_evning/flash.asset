@@ -29,11 +29,11 @@ MonoBehaviour:
     max: 1
   clamp:
     m_OverrideState: 1
-    m_Value: 3.59
+    m_Value: 4
     min: 0
   tint:
     m_OverrideState: 0
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_Value: {r: 0.9150943, g: 0.9150148, b: 0.7208526, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
-  m_Name: flash
+  m_Name: Flash
   m_EditorClassIdentifier: 
   components:
   - {fileID: -4677164176244057792}
