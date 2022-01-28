@@ -104,6 +104,12 @@ public class FirstPersonPerspectiveController : MonoBehaviour
         transform.rotation = Quaternion.Euler(rotationAngleX, rotationAngleY, 0);
     }
 
+    // 視点感度の変更 : 初期値 0.5。調整できるのは0.2 ~ 0.8 の間くらい
+    public void SetRotateSpeed(float speed)
+    {
+        RotateSpeed = speed;
+    }
+
     public void GetInitialRotation()
     {
         initialRotation = this.transform.rotation;
