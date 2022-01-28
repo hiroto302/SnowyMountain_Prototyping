@@ -7,10 +7,19 @@ using UnityEngine;
 // カーソルを中央に固定(プレイ中), 設定オプションなどを開いている時は自由に動かせるようにする
 // 中央に固定したカーソルのアイコンを変更
 // 他のオブジェクトと干渉できる場合はアイコンが変化できたりするようにする
-public class CursorController : MonoBehaviour
+public class CursorManager : MonoSingletone<CursorManager>
 {
     void Start()
     {
+        LockCursor();
+    }
+
+    public void LockCursor()
+    {
         Cursor.lockState = CursorLockMode.Locked;
+    }
+    public void UnLockCurcor()
+    {
+        Cursor.lockState = CursorLockMode.None;
     }
 }
