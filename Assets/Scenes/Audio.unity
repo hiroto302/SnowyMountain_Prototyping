@@ -680,6 +680,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paused: {fileID: 7216987364062053760, guid: dea5e7122908a4e019cd4a646c3344b8, type: 2}
   unPaused: {fileID: 24500006, guid: dea5e7122908a4e019cd4a646c3344b8, type: 2}
+  masterMixer: {fileID: 24100000, guid: dea5e7122908a4e019cd4a646c3344b8, type: 2}
 --- !u!4 &2019091676
 Transform:
   m_ObjectHideFlags: 0
