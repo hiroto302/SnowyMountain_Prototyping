@@ -23,16 +23,11 @@ public class OnInteract : MonoBehaviour
 
     public Sprite pointer = null; // インタラクトされる時に表示するポインター
 
+    Coroutine timerCoroutine;
 
     void Start()
     {
         timer = cooldown;
-    }
-
-    void Update()
-    {
-        if(hasBeenTriggered)
-            timer += Time.deltaTime;
     }
 
     // 登録されているメソッドを実行
@@ -46,6 +41,21 @@ public class OnInteract : MonoBehaviour
 
         onInteractEvent.Invoke();
         hasBeenTriggered = true;
-        timer = 0;
+        timer = 0;  // timer の初期化はここで実行 (連続で押した時複数回実行されるのを防ぐため)
+
+        if(timerCoroutine == null)
+            timerCoroutine = StartCoroutine(CoolDownRoutine());
+    }
+
+    IEnumerator CoolDownRoutine()
+    {
+        float waitTime = 0.2f;
+        while(cooldown > timer)
+        {
+            timer += waitTime;
+            yield return new WaitForSeconds(waitTime);
+        }
+        StopCoroutine(timerCoroutine);
+        timerCoroutine = null;
     }
 }

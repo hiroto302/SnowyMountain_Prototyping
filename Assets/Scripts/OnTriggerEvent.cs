@@ -50,6 +50,8 @@ public class OnTriggerEvent : MonoBehaviour
 
         onTriggerEnterEvent.Invoke();
         enterHasBeenTrigged = true;
+        enterTimer = 0;
+
 
         if(enterIsOneShot == false && enterTimerCoroutine == null)
             enterTimerCoroutine = StartCoroutine(CountEnterCoolDownTimeRoutine());
@@ -69,6 +71,8 @@ public class OnTriggerEvent : MonoBehaviour
 
         onTriggerExitEvent.Invoke();
         exitHasBeenTrigged = true;
+        exitTimer = 0;
+
 
         if(exitIsOneShot == false && exitTimerCoroutine == null)
             exitTimerCoroutine = StartCoroutine(CountExitCoolDownTimeRoutine());
@@ -79,7 +83,6 @@ public class OnTriggerEvent : MonoBehaviour
     IEnumerator CountEnterCoolDownTimeRoutine()
     {
         // 初期化
-        enterTimer = 0;
         float waitTime = 0.1f;
         while(enterEventCooldown > enterTimer)
         {
@@ -91,7 +94,6 @@ public class OnTriggerEvent : MonoBehaviour
     }
     IEnumerator CountExitCoolDownTimeRoutine()
     {
-        exitTimer = 0;
         float waitTime = 0.1f;
         while(exitEventCooldown > exitTimer)
         {
