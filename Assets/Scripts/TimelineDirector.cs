@@ -50,6 +50,8 @@ public class TimelineDirector : MonoBehaviour
         // UFO の墜落地点のオブジェクトを入れ替える
         if(OnFallUFO != null)
             OnFallUFO();
+
+        // UFO が墜落したフラグ
     }
 
     // Timelieを開始

@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45ec3cb75e3b74fc096215dbb06ec580, type: 3}
   m_Name: PlayerReactionTexMessageData
   m_EditorClassIdentifier: 
-  _Name: 
+  _Name: Player
   _TextMessages:
   - What's happened !?
   - Did it crash !? I'll go check !
+  - Are they human...?
+  - We seem to have hit it off with them !
