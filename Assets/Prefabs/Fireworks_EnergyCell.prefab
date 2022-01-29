@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 7519385201655390695}
   - component: {fileID: 7519385201655390692}
   - component: {fileID: 7519385201655390698}
+  - component: {fileID: 7519385201593844164}
   m_Layer: 0
   m_Name: Fireworks_EnergyCell
   m_TagString: Untagged
@@ -31,7 +32,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 863585910846378024}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 52.8704, y: 0.4253676, z: 35.845062}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -259,7 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOneShot: 0
-  cooldown: 0
+  cooldown: 1
   onInteractEvent:
     m_PersistentCalls:
       m_Calls:
@@ -275,4 +276,29 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7519385201593844164}
+        m_TargetAssemblyTypeName: MessageSender, Assembly-CSharp
+        m_MethodName: SendMessage
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 0
+          m_BoolArgument: 0
+        m_CallState: 2
   pointer: {fileID: 21300000, guid: ec785b50e779a415e9734907475045af, type: 3}
+--- !u!114 &7519385201593844164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863585910846378024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5125e571af7d8493e897e711fd8e7fce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 318f2b40cad044500b70ef9169f84795, type: 2}
