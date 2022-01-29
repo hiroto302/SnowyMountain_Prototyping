@@ -1321,7 +1321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOneShot: 0
-  cooldown: 0
+  cooldown: 5
   onInteractEvent:
     m_PersistentCalls:
       m_Calls:
@@ -2769,7 +2769,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOneShot: 0
-  cooldown: 0
+  cooldown: 5
   onInteractEvent:
     m_PersistentCalls:
       m_Calls:
@@ -3772,7 +3772,6 @@ GameObject:
   - component: {fileID: 1001565756}
   - component: {fileID: 1001565755}
   - component: {fileID: 1001565754}
-  - component: {fileID: 1001565759}
   m_Layer: 0
   m_Name: Witchs_house
   m_TagString: Untagged
@@ -3945,18 +3944,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1001565759}
-        m_TargetAssemblyTypeName: Sample, Assembly-CSharp
-        m_MethodName: Samples
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   pointer: {fileID: 21300000, guid: c36eb7d87359649659a494a67ea94728, type: 3}
 --- !u!65 &1001565758
 BoxCollider:
@@ -3971,18 +3958,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 6.485841, y: 6.381916, z: 5.616504}
   m_Center: {x: 0.0079145515, y: 3.1667137, z: -0.62958336}
---- !u!114 &1001565759
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1001565753}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40956657cc2714634aabcc78ca8cc69b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1001730585
 Transform:
   m_ObjectHideFlags: 0
@@ -5067,7 +5042,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOneShot: 0
-  cooldown: 0
+  cooldown: 5
   onInteractEvent:
     m_PersistentCalls:
       m_Calls:
@@ -35384,6 +35359,10 @@ PrefabInstance:
       propertyPath: shootposition
       value: 
       objectReference: {fileID: 754621290}
+    - target: {fileID: 7519385201655390698, guid: 04d70aa7234224c9c9353114105caeed, type: 3}
+      propertyPath: cooldown
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7519385201655390698, guid: 04d70aa7234224c9c9353114105caeed, type: 3}
       propertyPath: onInteractEvent.m_PersistentCalls.m_Calls.Array.size
       value: 2

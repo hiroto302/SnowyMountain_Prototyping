@@ -53,7 +53,7 @@ public class OnTriggerEvent : MonoBehaviour
         enterTimer = 0;
 
 
-        if(enterIsOneShot == false && enterTimerCoroutine == null)
+        if(enterEventCooldown != 0 && enterIsOneShot == false && enterTimerCoroutine == null)
             enterTimerCoroutine = StartCoroutine(CountEnterCoolDownTimeRoutine());
     }
 
@@ -74,7 +74,7 @@ public class OnTriggerEvent : MonoBehaviour
         exitTimer = 0;
 
 
-        if(exitIsOneShot == false && exitTimerCoroutine == null)
+        if(exitEventCooldown != 0 && exitIsOneShot == false && exitTimerCoroutine == null)
             exitTimerCoroutine = StartCoroutine(CountExitCoolDownTimeRoutine());
 
     }

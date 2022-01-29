@@ -43,7 +43,7 @@ public class OnInteract : MonoBehaviour
         hasBeenTriggered = true;
         timer = 0;  // timer の初期化はここで実行 (連続で押した時複数回実行されるのを防ぐため)
 
-        if(timerCoroutine == null)
+        if(cooldown != 0 && isOneShot == false && timerCoroutine == null)
             timerCoroutine = StartCoroutine(CoolDownRoutine());
     }
 
@@ -53,6 +53,7 @@ public class OnInteract : MonoBehaviour
         while(cooldown > timer)
         {
             timer += waitTime;
+            // 返り値がある、ここの記述が一度も実行されないと, NullReferenceException: routine is null など何かしら error が発生するので気をつけること
             yield return new WaitForSeconds(waitTime);
         }
         StopCoroutine(timerCoroutine);
