@@ -23,14 +23,9 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Y))
+        if(Input.GetKeyDown(KeyCode.R))
         {
             grabber.ReleaseGrabbedObject();
-        }
-
-        if(Input.GetKey(KeyCode.Escape))
-        {
-            Application.Quit();
         }
     }
 

@@ -183,7 +183,7 @@ public class FirstPersonPerspectiveController : MonoBehaviour
         // 走り or 歩き
         if(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
         {
-            MovementSpeed = 4.5f;
+            MovementSpeed = 4.8f;
             footstepInterval = 0.6f;
         }
         else

@@ -41,4 +41,11 @@ public class SE : MonoBehaviour
     {
         AudioSource.PlayClipAtPoint(sound[n], position, volume);
     }
+
+    // ランダムな音を再生
+    public void PlayRadomSE()
+    {
+        source.PlayOneShot(sound[Random.Range(0, sound.Length)]);
+    }
+
 }
