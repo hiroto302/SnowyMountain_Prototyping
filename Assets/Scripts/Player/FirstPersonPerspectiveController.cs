@@ -15,7 +15,7 @@ public class FirstPersonPerspectiveController : MonoBehaviour
 
     // MoveViewPointメソッドで利用する変数群
     // 回転速度
-    public float RotateSpeed = 0.5f;
+    public float RotateSpeed = 0.4f;
     // X, Y軸 に対する現在の回転角度
     float rotationAngleX, rotationAngleY;
     // 回転初期値
@@ -183,7 +183,7 @@ public class FirstPersonPerspectiveController : MonoBehaviour
         // 走り or 歩き
         if(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
         {
-            MovementSpeed = 4.8f;
+            MovementSpeed = 5.0f;
             footstepInterval = 0.6f;
         }
         else

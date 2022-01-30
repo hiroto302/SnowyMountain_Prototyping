@@ -43,7 +43,7 @@ public class MessageDisplay : MonoBehaviour
             displayer.SetActive(true);
             text.color = new Color(1, 1, 1, 1);
             text.text = message;
-            fadeDisplayerCoroutine = StartCoroutine(FadeOutDisplayerRoutine(2.5f));
+            fadeDisplayerCoroutine = StartCoroutine(FadeOutDisplayerRoutine(2f));
         }
     }
 
