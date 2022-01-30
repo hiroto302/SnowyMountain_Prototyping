@@ -35,6 +35,8 @@ public class EndingController : MonoBehaviour
     [SerializeField] List<GameObject> appearingAliens = null;
     // クリア前に元々いた宇宙人
     [SerializeField] List<GameObject> disappearingAliens = null;
+    // クリア後に出現させる特定の object
+    [SerializeField] List<GameObject> apperaingObjects = null;
 
     Coroutine callbackCoroutine = null;
 
@@ -97,6 +99,15 @@ public class EndingController : MonoBehaviour
             foreach(GameObject alien in disappearingAliens)
             {
                 alien.SetActive(false);
+            }
+        }
+
+        // 特定のオブジェクトを出現
+        if(apperaingObjects != null)
+        {
+            foreach(GameObject obj in apperaingObjects)
+            {
+                obj.SetActive(true);
             }
         }
     }
