@@ -20,18 +20,6 @@ public class FadeImage : MonoBehaviour
         GetInitialColor();
     }
 
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.B))
-        {
-            FadeIn(3.0f);
-        }
-        if(Input.GetKeyDown(KeyCode.V))
-        {
-            FadeOut(3.0f);
-        }
-    }
-
     public void FadeIn(float second)
     {
         fadeImageCoroutine = StartCoroutine(FadeInImageRoutine(second));

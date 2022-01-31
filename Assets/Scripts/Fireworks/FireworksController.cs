@@ -36,10 +36,10 @@ public class FireworksController : MonoBehaviour
             fireworks[i].GetComponent<ParticleSystem>().Play();
             i++;
         }
-        yield return new WaitForSeconds(1.7f);
+        yield return new WaitForSeconds(1.8f);
         flashPostProcessing.SetActive(true);
         flash.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2.5f);
         flash.SetActive(false);
         flashPostProcessing.SetActive(false);
         StopCoroutine(shootCoroutine);

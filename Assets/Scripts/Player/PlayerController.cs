@@ -21,14 +21,6 @@ public class PlayerController : MonoBehaviour
         SetState(State.Normal);
     }
 
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            grabber.ReleaseGrabbedObject();
-        }
-    }
-
     // Player の状態を変更するメソッド
     public void SetState(State state)
     {
