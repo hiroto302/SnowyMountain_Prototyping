@@ -858,7 +858,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 3.0734647e+32, y: 7.5553505e+28, z: 3.0749814e+29, w: 1.35477496e+14}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 4.06776e+9}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -4178,7 +4178,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 23
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &797052514
 Transform:
   m_ObjectHideFlags: 0
@@ -12100,7 +12100,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8356913321725545769, guid: dc8539b7f6d58434a82d6e22e50bb646, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc8539b7f6d58434a82d6e22e50bb646, type: 3}
