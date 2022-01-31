@@ -31,7 +31,6 @@ public class PlayerReactionController : MonoBehaviour
     {
         if(hasFallenAlien)
         {
-            Debug.Log("react1");
             messageSender.SendMessage(2);
             hasMetAlien = true;
             afterEncounterTrigger.enabled = true;
@@ -40,7 +39,6 @@ public class PlayerReactionController : MonoBehaviour
     // 出会った後の反応
     public void ReactToAlienEncounterAfterEvent()
     {
-        Debug.Log("react2");
         messageSender.SendMessage(3);
     }
 }

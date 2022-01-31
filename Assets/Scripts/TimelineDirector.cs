@@ -33,17 +33,13 @@ public class TimelineDirector : MonoBehaviour
         // StartTimeline();
     }
 
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.F))
-            StartTimeline();
-    }
 
     // Timeline開始時に実行したい処理
     void Director_Played(PlayableDirector obj)
     {
         
     }
+
     // Timline停止時に実行したい処理
     void Director_Stopped(PlayableDirector obj)
     {
