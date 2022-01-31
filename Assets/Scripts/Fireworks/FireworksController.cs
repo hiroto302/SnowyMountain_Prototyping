@@ -7,16 +7,28 @@ public class FireworksController : MonoBehaviour
 {
     [SerializeField] List<GameObject> fireworks = null;
     Coroutine shootCoroutine;
+
+    [SerializeField] GameObject flash = null;               // 花火の閃光を再現するもの
+    [SerializeField] GameObject flashPostProcessing = null; // 花火の閃光時の描画効果を再現するもの
+
     // 花火を打ち上げるメソッド
     public void ShootFireworks()
     {
         shootCoroutine = StartCoroutine(ShootRoutine());
     }
 
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            ShootFireworks();
+        }
+    }
+
     // セットされている花火を生成
     public IEnumerator ShootRoutine()
     {
-        yield return null;
+        // yield return null;
         int i = 0;
         while(fireworks.Count > i)
         {
@@ -24,6 +36,12 @@ public class FireworksController : MonoBehaviour
             fireworks[i].GetComponent<ParticleSystem>().Play();
             i++;
         }
+        yield return new WaitForSeconds(1.7f);
+        flashPostProcessing.SetActive(true);
+        flash.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        flash.SetActive(false);
+        flashPostProcessing.SetActive(false);
         StopCoroutine(shootCoroutine);
         shootCoroutine = null;
         // Destroy(this.gameObject);
