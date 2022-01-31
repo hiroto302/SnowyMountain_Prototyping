@@ -50,6 +50,7 @@ public class MessageDisplay : MonoBehaviour
     // 一定時間後、表示した文字をfadeOutさせ、displayer を非表示にする
     IEnumerator FadeOutDisplayerRoutine(float second)
     {
+        Debug.Log("Started FadeTextCoroutine at timestamp : " + Time.time);
         float r = text.color.r;         // text の色の初期値
         float g = text.color.g;
         float b = text.color.b;
@@ -72,8 +73,8 @@ public class MessageDisplay : MonoBehaviour
         StopCoroutine(fadeDisplayerCoroutine);
         fadeDisplayerCoroutine = null;
         displayer.SetActive(false);
-
         // 表示が終了したら発生するevent (次のメッセージがある場合,表示したいため)
         OnCompletDisplay();
+        Debug.Log("Finished TextFadeCoroutine at timestamp : " + Time.time);
     }
 }

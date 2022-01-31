@@ -40,10 +40,11 @@ public class Test : MonoBehaviour
     void TestCoroutine()
     {
         timerCoroutine =  StartCoroutine(CountTimeRoutine());
-        Debug.Log("Start Coroutine");
+        // Debug.Log("Start Coroutine");
     }
     IEnumerator CountTimeRoutine()
     {
+        Debug.Log("Started Coroutine at timestamp : " + Time.time);
         float elapsed = 0;
         float max = 10.0f;
         float waitTime = 1.0f;
@@ -51,10 +52,11 @@ public class Test : MonoBehaviour
         {
             elapsed += waitTime;
             yield return new WaitForSeconds(waitTime);
-            Debug.Log(elapsed + " : elapsedTime");
+            // Debug.Log(elapsed + " : elapsedTime");
             elapsedTime.text = elapsed.ToString();
         }
-        Debug.Log(" End Coroutine");
+        // Debug.Log(" End Coroutine");
+        Debug.Log("Finished Coroutine at timestamp : " + Time.time);
         StopCoroutine(timerCoroutine);
         timerCoroutine = null;
     }
